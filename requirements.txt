@@ -1,0 +1,49 @@
+# AI Roadmap Service Dependencies
+
+# Core Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+
+# MCP (Model Context Protocol) - Optional, only needed for MCP server mode
+mcp>=1.0.0  # Uncomment if running MCP server
+
+# AI/ML Libraries
+google-generativeai>=0.8.0       # Google Gemini (updated for Python 3.14 compatibility)
+
+# Data Processing
+pydantic>=2.9.0
+python-multipart==0.0.6
+
+# HTTP Client
+httpx>=0.27.0
+aiohttp>=3.10.0
+
+# Environment & Configuration
+python-dotenv>=1.0.0
+pydantic-settings>=2.0.0
+
+# Caching (Optional)
+# redis>=5.0.0
+# aioredis>=2.0.0
+
+# Database (Postgres / Supabase) - Optional, only needed if using PostgreSQL
+# asyncpg>=0.30.0  # Uncomment if using PostgreSQL
+
+# Logging & Monitoring
+structlog>=23.2.0
+
+# Security (Optional)
+# python-jose[cryptography]>=3.3.0
+# passlib[bcrypt]>=1.7.4
+
+# Development & Testing (Optional - comment out for production)
+# pytest>=7.4.0
+# pytest-asyncio>=0.21.0
+# pytest-mock>=3.12.0
+# black>=23.11.0
+# flake8>=6.1.0
+# mypy>=1.7.0
+
+# Documentation (Optional)
+# mkdocs>=1.5.0
+# mkdocs-material>=9.5.0

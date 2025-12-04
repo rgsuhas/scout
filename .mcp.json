@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "pathfinder": {
+      "command": "/home/rg/scout/venv/bin/python",
+      "args": ["/home/rg/scout/src/mcp_server.py"],
+      "env": {
+        "GOOGLE_API_KEY": "AIzaSyAv0mAI4wEDKrwcsjAOSAGEY7knixL1PgA",
+        "AI_PROVIDER": "google",
+        "GOOGLE_MODEL": "gemini-1.5-flash",
+        "SERVICE_NAME": "ai-roadmap-service",
+        "PORT": "8003",
+        "ENVIRONMENT": "development"
+      }
+    }
+  }
+}
