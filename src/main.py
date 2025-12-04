@@ -77,22 +77,34 @@ def create_app() -> FastAPI:
     )
 
     # Add middleware
+    # Configure CORS for production
+    allowed_origins = [
+        "http://localhost:3000",  # Frontend development
+        "http://localhost:3001",  # Alternative frontend port
+        "http://localhost:5173",  # Vite dev server
+        "http://localhost:8000",  # Backend local
+    ]
+
+    # Add configured frontend URL if set
+    if settings.frontend_url and settings.frontend_url not in allowed_origins:
+        allowed_origins.append(settings.frontend_url)
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[
-            "http://localhost:3000",  # Frontend development
-            "http://localhost:3001",  # Alternative frontend port
-            settings.frontend_url,    # Configured frontend URL
-        ],
+        allow_origins=allowed_origins,
+        allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com",  # Vercel & Render deployments
         allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE"],
+        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allow_headers=["*"],
+        expose_headers=["*"],
     )
     
-    app.add_middleware(
-        TrustedHostMiddleware,
-        allowed_hosts=["localhost", "127.0.0.1", "*"] if settings.environment == "development" else ["yourdomain.com"]
-    )
+    # Only use TrustedHostMiddleware in development to avoid deployment issues
+    if settings.environment == "development":
+        app.add_middleware(
+            TrustedHostMiddleware,
+            allowed_hosts=["localhost", "127.0.0.1", "*"]
+        )
 
     # Include routers
     app.include_router(health_router, prefix="/health", tags=["Health"])

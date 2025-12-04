@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: scout-api
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+
+    envVars:
+      - key: SERVICE_NAME
+        value: scout-api
+      - key: SERVICE_VERSION
+        value: 1.0.0
+      - key: PORT
+        value: 8003
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: info
+
+      # AI Provider Configuration
+      - key: AI_PROVIDER
+        value: google
+
+      # Google Gemini API (REQUIRED)
+      - key: GOOGLE_API_KEY
+        sync: false  # Set this in Render dashboard
+      - key: GOOGLE_MODEL
+        value: gemini-2.5-flash
+
+      # AI Parameters
+      - key: AI_MAX_TOKENS
+        value: 65536
+      - key: AI_TEMPERATURE
+        value: 0.7
+      - key: AI_TIMEOUT
+        value: 60
+
+      # Frontend URL for CORS
+      - key: FRONTEND_URL
+        sync: false  # Set this in Render dashboard
+
+      # Development Settings
+      - key: DEBUG
+        value: false
+      - key: RELOAD
+        value: false
+
+    # Health check endpoint
+    healthCheckPath: /health
